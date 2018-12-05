@@ -1,14 +1,23 @@
 pipeline {
   agent none
   stages {
-    stage('echo') {
+    stage('job1') {
       steps {
-        sh 'echo "echo_job"'
+        sh 'python3 /home/suresh/jenkins/job_1.py'
       }
     }
-    stage('echo1') {
-      steps {
-        sh 'echo "echo2"'
+    stage('job2') {
+      parallel {
+        stage('job2') {
+          steps {
+            sh 'python3 /home/suresh/jenkins/job_2.py'
+          }
+        }
+        stage('job3') {
+          steps {
+            sh 'python3 /home/suresh/jenkins/job_3.py'
+          }
+        }
       }
     }
   }
